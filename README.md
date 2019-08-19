@@ -2,7 +2,7 @@
 
 These are the codes with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
 
-Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping
+Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping, one shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
 
 | **Omnidirectional robot environment**       |
 | ------------------------------------------- |
@@ -10,6 +10,7 @@ Our testing environment `Omnirobot` with three different tasks: target reaching,
 
 #  An user guide for Policy Distillation
 
+These are steps to reproduce our experiments and results. The guideline is for a three-tasks distillation. A simplified two tasks distillation instruction can be found  in the folder [rl_baselines/supervised_rl/](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task/rl_baselines/supervised_rl)
 
 
 # 1 - Train Baselines
