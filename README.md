@@ -3,6 +3,7 @@
 These are the codes with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
 
 Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping, one shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
+For the tests of EWC method, one could refer to the branch [EWC_test](https://github.com/anonymous-authors-2018/CoRL/tree/EWC_test).
 
 | **Omnidirectional robot environment**       |
 | ------------------------------------------- |
