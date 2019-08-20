@@ -302,7 +302,7 @@ class OmniRobotEnv(SRLGymEnv):
         """
         :return: (int)
         """
-        return 4
+        return 2
 
     def getGroundTruth(self):
         """
@@ -310,7 +310,7 @@ class OmniRobotEnv(SRLGymEnv):
         :return: (numpy array)
         """
         #return np.array(self.getRobotPos())
-        return np.append(self.getRobotPos(),self.getTargetPos())
+        return np.array(self.getRobotPos()) # np.append(self.getRobotPos() - self.getTargetPos())
 
     def getRobotPos(self):
         """

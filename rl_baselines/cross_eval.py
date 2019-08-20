@@ -20,11 +20,11 @@ def dict2array(tasks,data):
     """
     res=[]
     for t in tasks:
-        if(t!='cc'):
+        if(t=='sc'):
             max_reward=250
             min_reward = 0
         else:
-            max_reward = 1920
+            max_reward = 1900
             min_reward = 0
 
         data[t]=np.array(data[t]).astype(float)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
                         ,help='RL algo to use')
     parser.add_argument('--num-iteration', type=int, default=5,
                         help='number of time each algorithm should be run the eval (N seeds).')
-    parser.add_argument('--scheduler',type = int, default=1,
+    parser.add_argument('--scheduler',type = int, nargs='+', default=[1,1] ,
                         help='A step scheduler for the evaluation')
 
     args, unknown = parser.parse_known_args()
@@ -103,7 +103,8 @@ if __name__ == '__main__':
     index_to_begin =0
     # The interval to skip, how many times we skip the evaluate
     # For example: if interval = 4 and episode, then the evaluation be be performed each 4* saved_checkpoint_episode
-    interval_len = args.scheduler
+    interval_len = args.scheduler[1]
+    episode_schedule = args.scheduler[0]
 
 
     #To verify if the episodes have been evaluated before
@@ -116,11 +117,11 @@ if __name__ == '__main__':
 
 
     else:
-        task_labels = ['cc', 'sc','esc']
+        task_labels = ['cc', 'sc']
         rewards = {}
         rewards['episode'] = []
         rewards['policy'] = []
-        for t in ['cc', 'sc','esc']:
+        for t in ['cc', 'sc']:
             rewards[t] = []
 
 
@@ -130,8 +131,8 @@ if __name__ == '__main__':
 
     printGreen("The evaluation will begin from {}".format(episodes[index_to_begin]))
 
-    last_mean = [250.,250,1900]
-    run_mean = [0,0,0]
+    last_mean = [250.,1900.]
+    run_mean = [0,0]
 
 
     for k in range(index_to_begin, len(episodes) ,interval_len):
@@ -142,11 +143,12 @@ if __name__ == '__main__':
 
         model_path=policy_paths[k]
 
-        for t , task_label in enumerate(["-esc","-sc", "-cc" ]):
+        for t , task_label in enumerate(["-sc", "-cc"]):
 
             local_reward = [int(episodes[k])]
 
             for seed_i in range(args.num_iteration):
+
                 command_line_enjoy_student = ['python', '-m', 'replay.enjoy_baselines', '--num-timesteps', '251',
                                               '--log-dir', model_path, task_label,  "--seed", str(seed_i)]
                 ok = subprocess.check_output(command_line_enjoy_student)

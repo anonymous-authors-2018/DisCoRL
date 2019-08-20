@@ -13,6 +13,8 @@ from rl_baselines.random_agent import RandomAgentModel
 from rl_baselines.rl_algorithm.sac import SACModel
 from rl_baselines.rl_algorithm.trpo import TRPOModel
 from rl_baselines.supervised_rl.policy_distillation import PolicyDistillationModel
+from rl_baselines.rl_ewc.ppo2_ewc import PPO2EWCModel
+from rl_baselines.progressive_nn.progressive_nn import ProgressiveNN
 
 # Register, name: (algo class, algo type, list of action types)
 registered_rl = {
@@ -28,7 +30,9 @@ registered_rl = {
     "random_agent": (RandomAgentModel, AlgoType.OTHER, [ActionType.DISCRETE, ActionType.CONTINUOUS]),
     "sac":          (SACModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.CONTINUOUS]),
     "trpo":         (TRPOModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE, ActionType.CONTINUOUS]),
-    "distillation": (PolicyDistillationModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE])
+    "distillation": (PolicyDistillationModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE]),
+    "ewc":          (PPO2EWCModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE, ActionType.CONTINUOUS]),
+    "prnn":         (ProgressiveNN, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE, ActionType.CONTINUOUS])
 }
 
 # Checking validity of the registered RL algorithms
