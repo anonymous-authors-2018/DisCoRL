@@ -4,7 +4,7 @@ This is the code with which we used to produce our results of our paper for The 
 
 Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping, one shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
 For the tests of EWC method, one could refer to the branch [ewc](https://github.com/anonymous-authors-2018/CoRL/tree/ewc).
-To perform Progress and Compress experiments, please refer to the branch [ProgressCompress](https://github.com/anonymous-authors-2018/CoRL/tree/ProgressCompress/environments/omnirobot_gym).
+To perform Progress and Compress experiments, please refer to the branch [ProgressCompress](https://github.com/anonymous-authors-2018/CoRL/tree/ProgressCompress).
 
 
 | **Omnidirectional robot environment**       |
