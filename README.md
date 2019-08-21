@@ -1,3 +1,3 @@
 # DisCoRL: Continual Reinforcement Learning via Policy Distillation
 
-These are the codes with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
+This is the code with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019. This repository consists of three different tasks for `OmnirobotEnv`, including circling, reaching and escaping tasks.
