@@ -265,8 +265,10 @@ def main():
                         help='A cross evaluation from the latest stored model to all tasks')
     parser.add_argument('--eval-episode-window', type=int, default=400, metavar='N',
                         help='Episode window for saving each policy checkpoint for future distillation(default: 100)')
-    parser.add_argument('--new-lr', type=float, default=1.e-4,
+    parser.add_argument('--new-lr',type = float , default =1.e-4 ,
                         help="New learning rate ratio to train a pretrained agent")
+    parser.add_argument('--lambda-p-and-c', type=float, default=0,
+                        help="Lambda for EWC in Progress and Compress.")
 
     # Ignore unknown args for now
     args, unknown = parser.parse_known_args()

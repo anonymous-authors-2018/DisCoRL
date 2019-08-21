@@ -13,6 +13,7 @@ from rl_baselines.random_agent import RandomAgentModel
 from rl_baselines.rl_algorithm.sac import SACModel
 from rl_baselines.rl_algorithm.trpo import TRPOModel
 from rl_baselines.supervised_rl.policy_distillation import PolicyDistillationModel
+from rl_baselines.supervised_rl.progress_and_compress import ProgressAndCompressModel
 
 # Register, name: (algo class, algo type, list of action types)
 registered_rl = {
@@ -28,7 +29,8 @@ registered_rl = {
     "random_agent": (RandomAgentModel, AlgoType.OTHER, [ActionType.DISCRETE, ActionType.CONTINUOUS]),
     "sac":          (SACModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.CONTINUOUS]),
     "trpo":         (TRPOModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE, ActionType.CONTINUOUS]),
-    "distillation": (PolicyDistillationModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE])
+    "distillation": (PolicyDistillationModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE]),
+    "progress-and-compress": (ProgressAndCompressModel, AlgoType.REINFORCEMENT_LEARNING, [ActionType.DISCRETE])
 }
 
 # Checking validity of the registered RL algorithms

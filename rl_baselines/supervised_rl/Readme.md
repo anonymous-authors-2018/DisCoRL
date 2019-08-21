@@ -116,3 +116,32 @@ cp config/srl_models_merged.yaml config/srl_models.yaml
 # Merged Dataset 
 python -m rl_baselines.train --algo distillation --srl-model srl_combination --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC --teacher-data-folder srl_zoo/data/merge_CC_SC -cc --distillation-training-set-size 40000 --epochs-distillation 20 --latest
 ```
+
+
+# 2 - Train Progress and Compress (distillation w/ raw pixels)
+
+
+### 2.1) Generate dataset on Policy
+
+(le dossier "data" ne se créé pas tout seul donc executer :  "mkdir data" si besoin)
+
+
+(pas completement automatisé "log_custom_policy" doit etre mis manuellement)
+
+```
+# Dataset 1 (random reaching target)
+python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100 --run-policy custom --log-custom-policy logs/*path2policy* --short-episodes --save-path data/ --name reaching_on_policy -sc
+
+# Dataset 2 (Circular task)
+python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100 --run-policy custom --log-custom-policy logs/*path2policy* --short-episodes --save-path data/ --name circular_on_policy -cc
+```
+
+### 2.3) Run Progress and Compress (distillation w/ raw pixels)
+
+```
+# make a new log folder
+mkdir logs/CL_SC_CC
+
+# Merged Dataset 
+python -m rl_baselines.train --algo progress_and_compress --srl-model raw_pixels --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC --teacher-data-folder data/circular_on_policy/ data/reaching_on_policy/ -cc --distillation-training-set-size 40000 --epochs-distillation 20 --latest
+```
