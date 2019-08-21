@@ -1,16 +1,6 @@
-
-
-
-#  Steps for Distillation
-
-
-
-
-
-# 1 - Train Baselines
-
-
-### 0 - Generate datasets for SRL (random policy)
+#  Steps for Progress and Compress for distillation
+This part consists of the code for testing the progress and compress method in our experimental setups. One could perform a continual learning process with two environments
+# Step 0 - Generate datasets for SRL (random policy)
 
 ```
 cd robotics-rl-srl
@@ -19,6 +9,7 @@ python -m environments.dataset_generator --num-cpu 6 --name Omnibot_random_simpl
 # Dataset 2 (Circular task)
 python -m environments.dataset_generator --num-cpu 6 --name Omnibot_circular --env OmnirobotEnv-v0 --circular-continual --num-episode 250 -f
 ```
+# Step 1 - Train Baselines
 
 ### 1.1) Train SRL
 
@@ -51,15 +42,13 @@ python -m rl_baselines.train --algo ppo2 --srl-model srl_combination --srl-confi
 cp config/srl_models_temp.yaml config/srl_models.yaml
 ```
 
-Visualize and plot
+Visualize and plot for trained policy
 
 ```
 # Visualize episodes 
 
 python -m replay.enjoy_baselines --log-dir *file* --num-timesteps 10000 --render --action-proba
 example : python -m replay.enjoy_baselines --log-dir logs/simple/OmnirobotEnv-v0/srl_combination/ppo2/19-04-25_10h19_42/ --num-timesteps 10000 --render --action-proba
-
-
 
 # plot results
 python -m replay.plots --log-dir /logs/simple/OmnirobotEnv-v0/srl_combination/ppo/ --latest
@@ -68,15 +57,10 @@ python -m replay.plots --log-dir /logs/circular/OmnirobotEnv-v0/srl_combination/
 
 ```
 
-# 2 - Train Distillation
+# Step 2 - Train Distillation
 
 
 ### 2.1) Generate dataset on Policy
-
-(le dossier "data" ne se créé pas tout seul donc executer :  "mkdir data" si besoin)
-
-
-(pas completement automatisé "log_custom_policy" doit etre mis manuellement)
 
 ```
 # Dataset 1 (random reaching target)
@@ -118,15 +102,10 @@ python -m rl_baselines.train --algo distillation --srl-model srl_combination --e
 ```
 
 
-# 2 - Train Progress and Compress (distillation w/ raw pixels)
+# Step 3 - Train Progress and Compress (distillation with raw pixels)
 
 
-### 2.1) Generate dataset on Policy
-
-(le dossier "data" ne se créé pas tout seul donc executer :  "mkdir data" si besoin)
-
-
-(pas completement automatisé "log_custom_policy" doit etre mis manuellement)
+### 3.1) Generate dataset on Policy
 
 ```
 # Dataset 1 (random reaching target)
@@ -136,12 +115,19 @@ python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100
 python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100 --run-policy custom --log-custom-policy logs/*path2policy* --short-episodes --save-path data/ --name circular_on_policy -cc
 ```
 
-### 2.3) Run Progress and Compress (distillation w/ raw pixels)
+### 3.2) Run Progress and Compress (distillation w/ raw pixels)
 
 ```
-# make a new log folder
-mkdir logs/CL_SC_CC
+# Train a Progress and Compress model
 
-# Merged Dataset 
-python -m rl_baselines.train --algo progress_and_compress --srl-model raw_pixels --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC --teacher-data-folder data/circular_on_policy/ data/reaching_on_policy/ -cc --distillation-training-set-size 40000 --epochs-distillation 20 --latest
+python -m rl_baselines.train --algo progress_and_compress --srl-model raw_pixels --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC/ --teacher-data-folder data/circular_on_policy/ data/reaching_on_policy/ -cc --distillation-training-set-size 40000 --epochs-distillation 20 --latest
+```
+
+
+# Step 4 -  Evaluation of the trained policy
+
+To evaluate the performance of the trained policy on two different environments.
+
+```
+python -m replay.enjoy_baselines --log-dir logs/CL_SC_CC/*path_to_policy_model* --num-timesteps 10000 --render --action-proba --*task-name* [--simple-continual, --circular-continual]
 ```
