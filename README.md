@@ -1,10 +1,11 @@
 # DisCoRL: Continual Reinforcement Learning via Policy Distillation
 
-This is the code with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
+This is the code used to reproduce the results of our paper for The Conference on Robot Learning (CoRL) 2019.
 
-Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping, one shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
-For the tests of EWC method, one could refer to the branch [ewc](https://github.com/anonymous-authors-2018/CoRL/tree/ewc).
-To perform Progress and Compress experiments, please refer to the branch [ProgressCompress](https://github.com/anonymous-authors-2018/CoRL/tree/ProgressCompress).
+Our environment `Omnirobot` includes three different tasks: target reaching, target circling and target escaping. 
+One shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
+For the baseline EWC method, refer to the branch [ewc](https://github.com/anonymous-authors-2018/CoRL/tree/ewc).
+For the baseline Progress & Compress, please refer to the branch [ProgressCompress](https://github.com/anonymous-authors-2018/CoRL/tree/ProgressCompress).
 
 
 | **Omnidirectional robot environment**       |
@@ -13,11 +14,11 @@ To perform Progress and Compress experiments, please refer to the branch [Progre
 
 #  A user guide for Policy Distillation
 
-These are steps to reproduce our experiments and results. We recommend to launch a `visdom` server to monitor the training process of Reinforcement learning by 
+These are steps to reproduce our experiments and results. We recommend launching a `visdom` server to monitor the training process of Reinforcement learning by running: 
 ```
 python -m visdom.server
 ```
-The guideline is for a three-tasks distillation. A simplified two tasks distillation instruction can be found  in the folder [rl_baselines/supervised_rl/](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task/rl_baselines/supervised_rl)
+The guidelines below are for distilling three tasks. A simplified two tasks distillation instruction is in folder [rl_baselines/supervised_rl/](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task/rl_baselines/supervised_rl)
 
 
 
@@ -72,11 +73,9 @@ python -m rl_baselines.train --algo ppo2 --srl-model srl_combination --srl-confi
 cp config/srl_models_temp.yaml config/srl_models.yaml
 ```
 
-Visualize and plot
+Visualizing the trained policy and plotting the RL learning curve
 
 ```
-# Visualize episodes
-
 python -m replay.enjoy_baselines --log-dir *file* --num-timesteps 10000 --render --action-proba
 example : python -m replay.enjoy_baselines --log-dir logs/simple/OmnirobotEnv-v0/srl_combination/ppo2/19-04-25_10h19_42/ --num-timesteps 10000 --render --action-proba
 
@@ -90,10 +89,10 @@ python -m replay.plots --log-dir /logs/circular/OmnirobotEnv-v0/srl_combination/
 python -m replay.plots --log-dir /logs/escape/OmnirobotEnv-v0/srl_combination/ppo/ --latest
 ```
 
-# Step 2 - Train Distillation
+# Step 2 - Distillation Training procedure
 
 
-### 2.1) Generate dataset on Policy
+### 2.1) Generating a dataset on-policy
 
 ```
 # Dataset 1 (Target Reaching task)
@@ -105,7 +104,7 @@ python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100
 # Dataset 3 (Target Escaping task)
 python -m environments.dataset_generator --env OmnirobotEnv-v0 --num-episode 100 --run-policy custom --log-custom-policy logs/*path2policy* --short-episodes --save-path data/ --name escape_on_policy -esc
 
-# Merge Datasets
+# Merging Datasets
 
 (/ ! \ it removes the generated dataset for dataset 1 and 2)
 # Merge the dataset of dataset 1(TR) and dataset 2(TC)
@@ -120,17 +119,17 @@ cp -r data/merge_CC_SC_ESC srl_zoo/data/merge_CC_SC_ESC
 ```
 
 
-### 2.2) Run Distillation
+### 2.2) Running Policy Distillation
 
 ```
 # make a new log folder
 mkdir logs/CL_SC_CC
 
-# Policy distillation on Merged Dataset
+# Policy distillation on merged dataset
 python -m rl_baselines.train --algo distillation --srl-model raw_pixels --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC --teacher-data-folder srl_zoo/data/merge_CC_SC_ESC  --distillation-training-set-size 40000 --epochs-distillation 5
 ```
 
-# Step 3 -  Evaluation of the trained policy
+# Step 3 -  Evaluating the trained policy
 
 ```
 python -m replay.enjoy_baselines --log-dir logs/CL_SC_CC/*path_to_policy_model* --num-timesteps 10000 --render --action-proba --*task-name* [--simple-continual, --circular-continual, --escape-continual]
