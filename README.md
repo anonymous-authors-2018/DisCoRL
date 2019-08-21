@@ -1,23 +1,22 @@
 # DisCoRL: Continual Reinforcement Learning via Policy Distillation
 
-These are the codes with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
+This is the code with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
 
 Our testing environment `Omnirobot` with three different tasks: target reaching, target circling and target escaping, one shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
 For the tests of EWC method, one could refer to the branch [EWC_test](https://github.com/anonymous-authors-2018/CoRL/tree/EWC_test).
+To perform Progress and Compress experiments, please refer to the branch [ProgressCompress](https://github.com/anonymous-authors-2018/CoRL/tree/ProgressCompress/environments/omnirobot_gym).
 
 | **Omnidirectional robot environment**       |
 | ------------------------------------------- |
 | <img src="imgs/three_tasks_reallife_sim_update.png " width="600">  |
 
-#  An user guide for Policy Distillation
+#  A user guide for Policy Distillation
 
 These are steps to reproduce our experiments and results. The guideline is for a three-tasks distillation. A simplified two tasks distillation instruction can be found  in the folder [rl_baselines/supervised_rl/](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task/rl_baselines/supervised_rl)
 
 
-# 1 - Train Baselines
 
-
-### 0 - Generate datasets for SRL (random policy)
+# Step 0 - Generate dataset for SRL (random policy)
 
 ```
 cd robotics-rl-srl
@@ -28,6 +27,9 @@ python -m environments.dataset_generator --num-cpu 6 --name Omnibot_circular --e
 # Dataset 3 (Target Escaping task)
 python -m environments.dataset_generator --num-cpu 6 --name Omnibot_escape --env OmnirobotEnv-v0 -esc --num-episode 250 -f
 ```
+
+# Step 1 - Train Baselines
+
 
 ### 1.1) Train SRL
 
@@ -83,7 +85,7 @@ python -m replay.plots --log-dir /logs/circular/OmnirobotEnv-v0/srl_combination/
 python -m replay.plots --log-dir /logs/escape/OmnirobotEnv-v0/srl_combination/ppo/ --latest
 ```
 
-# 2 - Train Distillation
+# Step 2 - Train Distillation
 
 
 ### 2.1) Generate dataset on Policy
@@ -123,8 +125,8 @@ mkdir logs/CL_SC_CC
 python -m rl_baselines.train --algo distillation --srl-model raw_pixels --env OmnirobotEnv-v0 --log-dir logs/CL_SC_CC --teacher-data-folder srl_zoo/data/merge_CC_SC_ESC  --distillation-training-set-size 40000 --epochs-distillation 5
 ```
 
-### 2.3) Evaluation of the trained policy
+# Step 3 -  Evaluation of the trained policy
 
 ```
-python -m replay.enjoy_baselines --log-dir logs/CL_SC_CC/*path_to_policy_model* --num-timesteps 10000 --render --action-proba
+python -m replay.enjoy_baselines --log-dir logs/CL_SC_CC/*path_to_policy_model* --num-timesteps 10000 --render --action-proba --*task-name* [--simple-continual, --circular-continual, --escape-continual]
 ```
