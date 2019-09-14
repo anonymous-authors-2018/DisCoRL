@@ -1,7 +1,5 @@
 # DisCoRL: Continual Reinforcement Learning via Policy Distillation
 
-This is the code used to reproduce the results of our paper for The Conference on Robot Learning (CoRL) 2019.
-
 Our environment `Omnirobot` includes three different tasks: target reaching, target circling and target escaping. 
 One shall use the branch [escaping_task](https://github.com/anonymous-authors-2018/CoRL/tree/escaping_task) for the escaping task.
 For the baseline EWC method, refer to the branch [ewc](https://github.com/anonymous-authors-2018/CoRL/tree/ewc).
