@@ -1,9 +1,6 @@
 
 # DisCoRL: Continual Reinforcement Learning via Policy Distillation
 
-These are the codes with which we used to produce our results of our paper for The Conference on Robot Learning (CoRL) 2019
-
-
 ## Branch for Elastic Weight Consolidation method test:
 <p>
 <img src="imgs/ewc_lam=400_p800k.png " width="300" alt> 
