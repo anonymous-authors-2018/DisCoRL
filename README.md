@@ -8,7 +8,7 @@ For the baseline Progress & Compress, please refer to the branch [ProgressCompre
 
 | **Omnidirectional robot environment**       |
 | ------------------------------------------- |
-| <img src="imgs/three_tasks_reallife_sim_update.png " width="600">  |
+| <img src="imgs/three_tasks_reallife_sim_update.png" width="600">  |
 
 #  A user guide for Policy Distillation
 
