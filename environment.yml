@@ -1,4 +1,4 @@
-name: robot
+name: DisCorl
 channels:
   - menpo
   - pytorch
