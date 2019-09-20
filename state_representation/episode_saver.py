@@ -14,7 +14,7 @@ class EpisodeSaver(object):
     """
     Save the experience data from a gym env to a file
     and notify the srl server so it learns from the gathered data
-    :param name: (str)
+    :param name: (str) the name for saving model
     :param max_dist: (float)
     :param state_dim: (int)
     :param globals_: (dict) Environments globals

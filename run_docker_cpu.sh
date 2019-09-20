@@ -1,5 +1,5 @@
 #!/bin/bash
-# Launch an experiment using the docker cpu image
+# Launch an experiment using the docker cpu image to do a simple docker test
 
 cmd_line="$@"
 

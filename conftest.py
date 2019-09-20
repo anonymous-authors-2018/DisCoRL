@@ -1,5 +1,5 @@
 import pytest
-
+# test code for configuration
 
 def pytest_addoption(parser):
     parser.addoption("--fast", action="store_true", default=False,

@@ -29,7 +29,7 @@ def assertEq(left, right):
 #
 #     num_timesteps = 10000
 #     args = ['--algo', DEFAULT_ALGO, '--srl-model', DEFAULT_SRL,
-#                         '--num-timesteps', num_timesteps, '--seed', SEED, '--no-vis',
+#                         '--num-timesteps', num-timesteps, '--seed', SEED, '--no-vis',
 #                         '--episode-window', EPISODE_WINS,
 #                         '--env', DEFAULT_ENV, '--log-dir', DEFAULT_LOG , task,
 #                         '--min-episodes-save', 0]

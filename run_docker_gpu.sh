@@ -1,5 +1,5 @@
 #!/bin/bash
-# Launch an experiment using the docker gpu image
+# Launch an experiment using the docker gpu image for Discorl
 
 cmd_line="$@"
 

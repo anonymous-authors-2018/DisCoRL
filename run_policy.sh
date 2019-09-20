@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 
-
-
-
 policy="ppo2"
 env="OmnirobotEnv-v0"
 

@@ -2,7 +2,6 @@
 
 
 
-
 policy="ppo2"
 env="OmnirobotEnv-v0"
 

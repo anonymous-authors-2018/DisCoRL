@@ -22,7 +22,7 @@ Z_TABLE, MAX_DISTANCE = 0, 0
 
 # Calibrated values for Real Baxter
 if USING_REAL_BAXTER:
-    # Initial position of the arm
+    # Initial position of the robot arm
     LEFT_ARM_INIT_POS = [0.69850099, 0.14505832, 0.08032852]
     # Initial orientation
     LEFT_ARM_ORIENTATION = [0.99893116, -0.04207143, -0.00574656, -0.01826233]

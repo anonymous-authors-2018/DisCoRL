@@ -10,7 +10,7 @@ from stable_baselines import bench
 def dynamicEnvLoad(env_id):
     """
     Get from Gym, the module where the environment is stored
-    :param env_id: (str)
+    :param env_id: (str) environment identity
     :return: (module, str, str) module_env, class_name, env_module_path
     """
     # Get from the env_id, the entry_point, and distinguish if it is a callable, or a string

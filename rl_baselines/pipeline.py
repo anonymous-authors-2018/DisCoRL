@@ -14,7 +14,7 @@ from state_representation.registry import registered_srl
 from state_representation import SRLType
 from srl_zoo.utils import printGreen, printRed
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # used to remove debug info of tensorflow
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # used to remove debug info of Tensorflow
 
 
 def main():

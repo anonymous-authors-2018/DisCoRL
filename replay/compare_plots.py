@@ -10,7 +10,7 @@ from matplotlib import rc
 from replay.aggregate_plots import lightcolors, darkcolors, Y_LIM_SHAPED_REWARD, Y_LIM_SPARSE_REWARD, millions
 from srl_zoo.utils import printGreen, printRed
 
-# Init seaborn
+# Init seaborn for plot
 sns.set()
 # Style for the title
 fontstyle = {'fontname': 'DejaVu Sans', 'fontsize': 22, 'fontweight': 'bold'}
